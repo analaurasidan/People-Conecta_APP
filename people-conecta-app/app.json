@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "People Conecta",
+    "slug": "people-conecta",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FDFAF4"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.peopleconecta.app",
+      "buildNumber": "1",
+      "usesAppleSignIn": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Para subir fotos a tu perfil y en tus planes.",
+        "NSCameraUsageDescription": "Para sacar fotos desde la app.",
+        "NSUserNotificationsUsageDescription": "Para avisarte cuando alguien se suma a tu plan."
+      }
+    },
+    "plugins": [
+      "expo-font",
+      "expo-image-picker",
+      "expo-apple-authentication",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#00A8A8"
+        }
+      ],
+    ],
+    "web": {
+      "bundler": "webpack"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "TU_PROJECT_ID_DE_EAS_AQUI"
+      }
+    }
+  }
+}

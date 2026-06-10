@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-bright": "#f9f9fd",
+                    "on-secondary-fixed-variant": "#4a473c",
+                    "on-tertiary-container": "#eeb269",
+                    "inverse-on-surface": "#f0f0f4",
+                    "surface-tint": "#31628e",
+                    "primary": "#00385d",
+                    "tertiary-fixed": "#ffddb8",
+                    "primary-container": "#1a4f7a",
+                    "on-primary": "#ffffff",
+                    "primary-fixed-dim": "#9dcbfc",
+                    "surface": "#f9f9fd",
+                    "surface-container-low": "#f3f3f7",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "surface-variant": "#e2e2e6",
+                    "on-secondary-container": "#686459",
+                    "on-surface": "#1a1c1f",
+                    "on-primary-fixed-variant": "#124a74",
+                    "error": "#ba1a1a",
+                    "on-error-container": "#93000a",
+                    "on-tertiary": "#ffffff",
+                    "outline": "#72777f",
+                    "background": "#f9f9fd",
+                    "on-primary-fixed": "#001d34",
+                    "error-container": "#ffdad6",
+                    "secondary": "#625e53",
+                    "on-secondary": "#ffffff",
+                    "surface-dim": "#d9dade",
+                    "tertiary-fixed-dim": "#f8bb71",
+                    "on-error": "#ffffff",
+                    "inverse-primary": "#9dcbfc",
+                    "on-secondary-fixed": "#1d1c13",
+                    "tertiary-container": "#6d4300",
+                    "surface-container-high": "#e7e8ec",
+                    "surface-container": "#ededf2",
+                    "outline-variant": "#c2c7d0",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary-fixed": "#e8e2d3",
+                    "on-tertiary-fixed": "#2b1700",
+                    "secondary-fixed-dim": "#cbc6b8",
+                    "sand-50": "#FDFAF5",
+                    "sand-100": "#f5f0e6",
+                    "sand-700": "#574B30",
+                    "sand-800": "#362E1C",
+                    "on-primary-container": "#93c1f2",
+                    "primary-fixed": "#cfe4ff",
+                    "tertiary": "#4e2f00",
+                    "on-background": "#1a1c1f",
+                    "inverse-surface": "#2e3034",
+                    "on-surface-variant": "#42474e",
+                    "secondary-container": "#e8e2d3",
+                    "white": "#FFFFFF",
+                    "surface-container-highest": "#e2e2e6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "xxl": "1.5rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "8px",
+                    "xxl": "48px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "base": "4px",
+                    "xs": "4px"
+            },
+            "fontFamily": {
+                    "label-sm": ["DM Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-lg": ["DM Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "body-sm": ["DM Sans"],
+                    "body-md": ["DM Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "label-md": ["DM Sans"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            background-color: #FDFAF5; /* sand-50 */
+        }
+        .profile-card-shadow {
+            shadow: 0 4px 20px -2px rgba(0, 56, 93, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen text-on-surface font-body-md selection:bg-primary/10">
+<!-- Top AppBar -->
+<header class="sticky top-0 z-50 bg-surface-bright/90 backdrop-blur-md transition-opacity hover:opacity-100">
+<div class="flex justify-between items-center w-full px-lg py-md max-w-screen-xl mx-auto">
+<div class="flex items-center gap-md">
+<button aria-label="Menu" class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity active:scale-95 duration-100">menu</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">People Conecta</h1>
+</div>
+<button aria-label="Add" class="material-symbols-outlined text-primary hover:opacity-80 transition-opacity active:scale-95 duration-100">add_circle</button>
+</div>
+</header>
+<main class="max-w-md mx-auto px-md pt-lg pb-xxl space-y-xl">
+<!-- Profile Header Section -->
+<section class="flex flex-col items-center text-center space-y-md">
+<div class="relative">
+<div class="w-32 h-32 rounded-full border-4 border-white shadow-lg overflow-hidden bg-sand-100">
+<img class="w-full h-full object-cover" data-alt="A high-quality, professional headshot of a friendly young man with a warm smile, set against a soft-focus coastal background of Mar del Plata. The lighting is golden hour sunlight, creating a natural and inviting atmosphere. The overall aesthetic is clean, lifestyle-oriented, and perfectly integrated with the brand's navy and sand color palette." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBxsulSIntUcSr1jBdIhEtrAN1hJ4f2z74LAd2f5HqFcfDottDKhfCx5Fw-bE99HjQEt3nI2DEKvz5fXdq61wtbaOQQG2SacnBzsoqJN9PKM0UksZ6DIG75uaKzXq0jjkeNavib1zddzDLoWXrgjvrDMmNscciOxhQTFSjGTyqZfGxSAoYioAJR8uWW1ZRCb2JNYkGRgLc6qHgdWTisy2RC2AS2nP4JKF3JLkr3LnqqW_2oNyp_ulKmQk3VNZMgWNx_sHUCXam9Ubg"/>
+</div>
+<div class="absolute bottom-0 right-0 bg-primary p-2 rounded-full border-2 border-white text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</div>
+</div>
+<div class="space-y-xs">
+<h2 class="font-headline-sm text-headline-sm text-primary">Mateo</h2>
+<div class="flex items-center justify-center gap-1 text-on-surface-variant font-label-md">
+<span class="material-symbols-outlined text-sm">location_on</span>
+<span>Mar del Plata, Argentina</span>
+</div>
+</div>
+<!-- Interests Chips -->
+<div class="flex flex-wrap justify-center gap-sm">
+<span class="px-md py-1 bg-sand-100 text-sand-800 rounded-full font-label-md">Surf</span>
+<span class="px-md py-1 bg-sand-100 text-sand-800 rounded-full font-label-md">Cine</span>
+<span class="px-md py-1 bg-sand-100 text-sand-800 rounded-full font-label-md">Café</span>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="grid grid-cols-3 gap-md bg-white rounded-xxl p-lg shadow-sm border border-sand-100">
+<div class="flex flex-col items-center gap-1">
+<span class="font-headline-sm text-primary">12</span>
+<span class="font-label-sm text-on-surface-variant text-center leading-tight">Planes asistidos</span>
+</div>
+<div class="flex flex-col items-center gap-1 border-x border-sand-100 px-sm">
+<span class="font-headline-sm text-primary">2</span>
+<span class="font-label-sm text-on-surface-variant text-center leading-tight">Planes creados</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<div class="flex items-center text-primary">
+<span class="font-headline-sm">4.9</span>
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+<span class="font-label-sm text-on-surface-variant text-center leading-tight">Rating</span>
+</div>
+</section>
+<!-- My Created Plans -->
+<section class="space-y-md">
+<div class="flex justify-between items-center">
+<h3 class="font-headline-sm text-primary">Mis planes creados</h3>
+<button class="text-primary font-label-md">Ver todos</button>
+</div>
+<div class="space-y-sm">
+<!-- Compact Plan Card 1 -->
+<div class="flex items-center gap-md bg-white p-sm rounded-xl border border-sand-100 hover:border-primary/20 transition-colors">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="A serene morning view of the Atlantic coast in Mar del Plata, with gentle waves hitting the shore and surfers in the distance. The lighting is soft and airy, characteristic of a coastal sunrise. The color palette features natural sand tones and deep navy blues, maintaining a minimalist and high-end lifestyle aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVJvOH0Owhlq1OJGJHkB1VhI4uq8JX-WrDKs7yffGfTyUIv3BMeOITYIZkms1EHFWgm7MvakEXVPqjLcEfvoG_d7w09bi5cQ1YA7WPWmJNJzb_UuInX3teN0ExYadGEtV4-Gv4ylljx-2ROKV4B6V7K-bRVD6iu93aeSOSlVHPSNa5uRGqTZjeGUbYo_aklKKjVnfDCpiT_zv_6IxKEUK48921OYEpgr71xhX9vg0DqXhgqbEOsNJel8D2b2HelEIQOojRXzLq3Yg"/>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="font-label-md text-on-surface truncate">Surf al amanecer en Playa Grande</h4>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-[14px]">calendar_month</span>
+<span>Sáb, 24 de Agosto</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+<!-- Compact Plan Card 2 -->
+<div class="flex items-center gap-md bg-white p-sm rounded-xl border border-sand-100 hover:border-primary/20 transition-colors">
+<div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover" data-alt="An artisanal coffee shop interior with minimalist decor, featuring light wood textures and soft warm lighting. A perfectly poured cappuccino sits on a marble table beside a window overlooking a quiet street. The atmosphere is cozy and inviting, following a neutral sand and cream color story." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCIzrqw6BeAxP03dtr7t0YJh-GwnsqXVrT-JlQ9Suu5BcgP8EqaUOdxZJHl8oXa-FHeCXwN8AK8Dm6qtsRTVsg48VItswqXrkuLQs4qjwvdEVIJ6iHODD_TTcnrSW2LD8NgZDkhTLJIQULUldhMkHblugaAmGupo0GeV6pODt_ojZ64Goj57tvB7Rp3CVw3SkxhkJ62fPzgB_DQX3bW9pl3I1GgKS1tnH4XVhHTayOnPJKPnSCHLwXk0Q6_CG8eJC5EbCrvOTGi7mU"/>
+</div>
+<div class="flex-grow min-w-0">
+<h4 class="font-label-md text-on-surface truncate">Coffee &amp; Networking en Güemes</h4>
+<div class="flex items-center gap-2 text-on-surface-variant font-label-sm">
+<span class="material-symbols-outlined text-[14px]">calendar_month</span>
+<span>Próximo Martes</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</div>
+</div>
+</section>
+<!-- Footer Actions -->
+<section class="flex flex-col items-center pt-md">
+<button class="text-primary font-label-md font-bold py-md px-xl hover:bg-primary/5 rounded-full transition-colors active:scale-95 duration-100">
+                Cerrar Sesión
+            </button>
+<p class="text-on-surface-variant font-label-sm mt-sm">Versión 2.4.0</p>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-md pb-8 pt-2 bg-surface-container-lowest/80 backdrop-blur-md rounded-t-xl shadow-sm border-t border-outline-variant/30">
+<!-- Explorar -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-4 py-1 rounded-full group" href="#">
+<span class="material-symbols-outlined mb-1 transition-transform group-active:scale-90">location_searching</span>
+<span class="font-label-sm text-label-sm">Explorar</span>
+</a>
+<!-- Mis Planes -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-high transition-colors px-4 py-1 rounded-full group" href="#">
+<span class="material-symbols-outlined mb-1 transition-transform group-active:scale-90">calendar_month</span>
+<span class="font-label-sm text-label-sm">Mis Planes</span>
+</a>
+<!-- Perfil (Active State) -->
+<a class="flex flex-col items-center justify-center text-primary bg-secondary-container rounded-full px-4 py-1 transition-all scale-100 active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-label-sm text-label-sm">Perfil</span>
+</a>
+</nav>
+<script>
+        // Simple micro-interaction for cards
+        document.querySelectorAll('.hover\\:border-primary\\/20').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1)';
+            });
+            card.style.transition = 'transform 0.1s ease-out, border-color 0.2s ease';
+        });
+    </script>
+</body></html>

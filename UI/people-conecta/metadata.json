@@ -1,0 +1,6 @@
+{
+  "name": "People Conecta",
+  "description": "Gateway para combatir la soledad de jóvenes en Mar del Plata conectándolos con actividades presenciales reales y grupos reducidos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

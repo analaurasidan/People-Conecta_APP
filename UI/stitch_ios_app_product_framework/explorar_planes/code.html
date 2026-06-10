@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&amp;family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-bright": "#f9f9fd",
+                      "on-secondary-fixed-variant": "#4a473c",
+                      "on-tertiary-container": "#eeb269",
+                      "inverse-on-surface": "#f0f0f4",
+                      "surface-tint": "#31628e",
+                      "primary": "#00385d",
+                      "tertiary-fixed": "#ffddb8",
+                      "primary-container": "#1a4f7a",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#9dcbfc",
+                      "surface": "#f9f9fd",
+                      "surface-container-low": "#f3f3f7",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "surface-variant": "#e2e2e6",
+                      "on-secondary-container": "#686459",
+                      "on-surface": "#1a1c1f",
+                      "on-primary-fixed-variant": "#124a74",
+                      "error": "#ba1a1a",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "outline": "#72777f",
+                      "background": "#f9f9fd",
+                      "on-primary-fixed": "#001d34",
+                      "error-container": "#ffdad6",
+                      "secondary": "#625e53",
+                      "on-secondary": "#ffffff",
+                      "surface-dim": "#d9dade",
+                      "tertiary-fixed-dim": "#f8bb71",
+                      "on-error": "#ffffff",
+                      "inverse-primary": "#9dcbfc",
+                      "on-secondary-fixed": "#1d1c13",
+                      "tertiary-container": "#6d4300",
+                      "surface-container-high": "#e7e8ec",
+                      "surface-container": "#ededf2",
+                      "outline-variant": "#c2c7d0",
+                      "surface-container-lowest": "#ffffff",
+                      "secondary-fixed": "#e8e2d3",
+                      "on-tertiary-fixed": "#2b1700",
+                      "secondary-fixed-dim": "#cbc6b8",
+                      "sand-50": "#FDFAF5",
+                      "sand-700": "#574B30",
+                      "sand-800": "#362E1C",
+                      "on-primary-container": "#93c1f2",
+                      "primary-fixed": "#cfe4ff",
+                      "tertiary": "#4e2f00",
+                      "on-background": "#1a1c1f",
+                      "inverse-surface": "#2e3034",
+                      "on-surface-variant": "#42474e",
+                      "secondary-container": "#e8e2d3",
+                      "white": "#FFFFFF",
+                      "surface-container-highest": "#e2e2e6"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "8px",
+                      "xxl": "48px",
+                      "xl": "32px",
+                      "md": "16px",
+                      "lg": "24px",
+                      "base": "4px",
+                      "xs": "4px"
+              },
+              "fontFamily": {
+                      "label-sm": ["DM Sans"],
+                      "headline-md": ["Plus Jakarta Sans"],
+                      "display-lg-mobile": ["Plus Jakarta Sans"],
+                      "body-lg": ["DM Sans"],
+                      "display-lg": ["Plus Jakarta Sans"],
+                      "body-sm": ["DM Sans"],
+                      "body-md": ["DM Sans"],
+                      "headline-sm": ["Plus Jakarta Sans"],
+                      "label-md": ["DM Sans"]
+              },
+              "fontSize": {
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.03em", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "display-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                      "body-lg": ["18px", {"lineHeight": "26px", "fontWeight": "400"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "headline-sm": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body { background-color: #FDFAF5; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .card-shadow { box-shadow: 0 4px 20px -2px rgba(54, 46, 28, 0.05); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body-md text-on-surface">
+<!-- Top AppBar -->
+<header class="bg-surface-bright dark:bg-surface-dim docked full-width top-0 z-40">
+<div class="flex justify-between items-center w-full px-lg py-md max-w-screen-xl mx-auto">
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity active:scale-95 duration-100">menu</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-fixed">People Conecta</h1>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed hover:opacity-80 transition-opacity active:scale-95 duration-100">add_circle</button>
+</div>
+</header>
+<main class="pb-32 px-md max-w-screen-xl mx-auto mt-lg">
+<!-- Search Bar -->
+<section class="mb-lg">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-sand-700 opacity-50">search</span>
+<input class="w-full bg-sand-100 border-none rounded-full py-4 pl-12 pr-4 focus:ring-2 focus:ring-primary/20 text-sand-800 placeholder:text-sand-700 placeholder:opacity-50 font-body-md shadow-sm" placeholder="Buscar experiencias cerca de ti..." type="text"/>
+</div>
+</section>
+<!-- Categories Scroll -->
+<section class="mb-xl -mx-md px-md overflow-x-auto hide-scrollbar flex gap-sm">
+<button class="px-lg py-sm bg-primary text-white rounded-full font-label-md text-label-md whitespace-nowrap transition-transform active:scale-95">Todos</button>
+<button class="px-lg py-sm bg-sand-100 text-sand-700 hover:bg-sand-200 rounded-full font-label-md text-label-md whitespace-nowrap transition-transform active:scale-95">Deportes</button>
+<button class="px-lg py-sm bg-sand-100 text-sand-700 hover:bg-sand-200 rounded-full font-label-md text-label-md whitespace-nowrap transition-transform active:scale-95">Gastronomía</button>
+<button class="px-lg py-sm bg-sand-100 text-sand-700 hover:bg-sand-200 rounded-full font-label-md text-label-md whitespace-nowrap transition-transform active:scale-95">Arte</button>
+<button class="px-lg py-sm bg-sand-100 text-sand-700 hover:bg-sand-200 rounded-full font-label-md text-label-md whitespace-nowrap transition-transform active:scale-95">Naturaleza</button>
+</section>
+<!-- Main Content (Events Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Event Card 1 -->
+<article class="bg-white rounded-xl overflow-hidden card-shadow transition-transform hover:scale-[1.01] duration-300">
+<div class="aspect-video w-full overflow-hidden bg-sand-200">
+<img class="w-full h-full object-cover" data-alt="A wide panoramic shot of a serene beach in Mar del Plata during a golden morning. Soft sunlight glints off the gentle ocean waves while the sand remains pristine and undisturbed. The atmosphere is peaceful and airy, reflecting a minimalist and organic lifestyle aesthetic with warm, natural sand tones and deep navy blue ocean water." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNBwPiVx_c0DsasWsXZgF-sBcK1d3hpJ0a-WF4ikHawYopUHSxV55supxdGXgvlrKJ9kRXB2Jr5hQzmp3bi0M6lahqQCX01213tHD01nin3rdhHGQuIFFFrquHLa9rel3BOaRB0ax5QarrRJIaEMRGp79Plx4cOJC4YJ3Jg04z5eH3RrbvsKi2GpjHowKCm2ew_rUBcnDYZRPEE63dT5uSW91lFmJB9Za-0uMKC_pkjn1ohyCpstudTmBcz4GOpd7yQQcrCYYadR8"/>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-base">
+<h3 class="font-headline-sm text-headline-sm text-sand-800">Caminata por la costa</h3>
+<span class="bg-sand-100 text-sand-700 px-sm py-1 rounded text-label-sm font-label-sm">Hoy</span>
+</div>
+<p class="text-sand-700 opacity-80 font-body-sm text-body-sm flex items-center gap-1 mb-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Playa Grande, MDP
+                    </p>
+<!-- Progress Bar -->
+<div class="space-y-base">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-sand-700">Cupos ocupados</span>
+<span class="text-primary font-bold">3/6</span>
+</div>
+<div class="h-1.5 w-full bg-sand-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-700" style="width: 50%;"></div>
+</div>
+</div>
+</div>
+</article>
+<!-- Event Card 2 -->
+<article class="bg-white rounded-xl overflow-hidden card-shadow transition-transform hover:scale-[1.01] duration-300">
+<div class="aspect-video w-full overflow-hidden bg-sand-200">
+<img class="w-full h-full object-cover" data-alt="An inviting and cozy interior of a high-end local bakery with natural wooden textures and artisanal breads displayed on stone counters. Warm morning light floods the space through large windows, creating a welcoming and breathable atmosphere. The visual style is minimalist and clean, utilizing a palette of soft sand colors and deep navy accents for professional elegance." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJfekzUQGzxeK9nEzmYcnhc4K0dX7TmWagsdas4DhikVOBV8cQ-VHoFoygWCNEuPnzycQmnYx9vcj5wpnd22UoLScLBM_Dd3Ij2AnZrviqfUgRdfWM-83F9zCYwro7YkmonUDkHxPGw4oqzedKHQseCFq4y_1XfXZIIP63cXYD-vm_DWHfs_aH2EM8ROfHeuFgKwyvTQHLwl8XE9it1hxyHuRFjsERpqBTy_Wpul-PZfH0vHsEjESfRdBbqCxksGXCYcDJN-hfX-k"/>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-base">
+<h3 class="font-headline-sm text-headline-sm text-sand-800">Taller de Masa Madre</h3>
+<span class="bg-sand-100 text-sand-700 px-sm py-1 rounded text-label-sm font-label-sm">Sáb 14</span>
+</div>
+<p class="text-sand-700 opacity-80 font-body-sm text-body-sm flex items-center gap-1 mb-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Güemes, MDP
+                    </p>
+<div class="space-y-base">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-sand-700">Cupos ocupados</span>
+<span class="text-primary font-bold">5/8</span>
+</div>
+<div class="h-1.5 w-full bg-sand-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-700" style="width: 62%;"></div>
+</div>
+</div>
+</div>
+</article>
+<!-- Event Card 3 -->
+<article class="bg-white rounded-xl overflow-hidden card-shadow transition-transform hover:scale-[1.01] duration-300">
+<div class="aspect-video w-full overflow-hidden bg-sand-200">
+<img class="w-full h-full object-cover" data-alt="A tranquil outdoor yoga session at dawn on a wooden deck overlooking a pine forest. The lighting is soft and misty, with cool blues and warm sand-colored highlights. The scene evokes a sense of trustworthy lifestyle and physical connection to nature, maintaining a breathable and uncluttered composition consistent with a minimalist design language." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8BspiyLdPwO__Pc7ZtNQrM8pyhD1Nmc0y0cXCXc1xcscuvlQhD3uUCIBH0VPHFUjE25reKefWLIUbx8F6K8-PHIKND6S3ei5cgPWy18Ccr51-xw8cAAOC6TIKBFKyxkpNu1CxVTf4-dWMwEA38oO6iocJMdjBKXaTCAyIsmBP9qZFY4LplnChk6tc11KlwEq8kPV5Vt1CIcxCzM25kzK6hvFcW22cOa-1FGAANzWfRJmAyjqYG--7vAXYUxmjld70frKBJwmtP0Q"/>
+</div>
+<div class="p-md">
+<div class="flex justify-between items-start mb-base">
+<h3 class="font-headline-sm text-headline-sm text-sand-800">Yoga al Amanecer</h3>
+<span class="bg-sand-100 text-sand-700 px-sm py-1 rounded text-label-sm font-label-sm">Dom 15</span>
+</div>
+<p class="text-sand-700 opacity-80 font-body-sm text-body-sm flex items-center gap-1 mb-md">
+<span class="material-symbols-outlined text-[16px]">location_on</span> Bosque Peralta Ramos
+                    </p>
+<div class="space-y-base">
+<div class="flex justify-between text-label-sm font-label-sm">
+<span class="text-sand-700">Cupos ocupados</span>
+<span class="text-primary font-bold">2/10</span>
+</div>
+<div class="h-1.5 w-full bg-sand-100 rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full transition-all duration-700" style="width: 20%;"></div>
+</div>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- FAB -->
+<button class="fixed right-lg bottom-28 w-14 h-14 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-all z-40">
+<span class="material-symbols-outlined text-[32px]" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 flex justify-around items-center px-md pb-8 pt-2 bg-surface-container-lowest/80 dark:bg-surface-container-highest/80 backdrop-blur-md border-t border-outline-variant/30 dark:border-outline/20 shadow-sm rounded-t-xl">
+<!-- Explorar (Active) -->
+<a class="flex flex-col items-center justify-center text-primary dark:text-primary-fixed-dim bg-secondary-container dark:bg-primary-container rounded-full px-4 py-1 hover:bg-surface-container-high dark:hover:bg-surface-container-low transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">location_searching</span>
+<span class="font-label-sm text-label-sm">Explorar</span>
+</a>
+<!-- Mis Planes -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-surface-container-low transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="font-label-sm text-label-sm">Mis Planes</span>
+</a>
+<!-- Perfil -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-surface-container-low transition-colors active:scale-90 duration-200" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-label-sm text-label-sm">Perfil</span>
+</a>
+</nav>
+<script>
+        // Simple ripple effect for cards
+        document.querySelectorAll('article').forEach(card => {
+            card.addEventListener('mousedown', () => {
+                card.style.transform = 'scale(0.98)';
+            });
+            card.addEventListener('mouseup', () => {
+                card.style.transform = 'scale(1.01)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'scale(1)';
+            });
+        });
+
+        // Filter chip selection logic
+        const chips = document.querySelectorAll('section button');
+        chips.forEach(chip => {
+            chip.addEventListener('click', () => {
+                chips.forEach(c => {
+                    c.classList.remove('bg-primary', 'text-white');
+                    c.classList.add('bg-sand-100', 'text-sand-700');
+                });
+                chip.classList.remove('bg-sand-100', 'text-sand-700');
+                chip.classList.add('bg-primary', 'text-white');
+            });
+        });
+    </script>
+</body></html>

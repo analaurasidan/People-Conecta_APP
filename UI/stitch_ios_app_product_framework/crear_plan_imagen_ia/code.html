@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=DM+Sans:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "secondary-container": "#e8e2d3",
+                    "on-surface-variant": "#42474e",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-tertiary-container": "#eeb269",
+                    "on-primary-fixed-variant": "#124a74",
+                    "outline-variant": "#c2c7d0",
+                    "inverse-primary": "#9dcbfc",
+                    "background": "#f9f9fd",
+                    "primary-container": "#1a4f7a",
+                    "primary-fixed-dim": "#9dcbfc",
+                    "on-secondary-fixed": "#1d1c13",
+                    "error-container": "#ffdad6",
+                    "on-background": "#1a1c1f",
+                    "outline": "#72777f",
+                    "sand-700": "#574B30",
+                    "on-tertiary-fixed": "#2b1700",
+                    "surface": "#f9f9fd",
+                    "surface-container-high": "#e7e8ec",
+                    "sand-50": "#FDFAF5",
+                    "surface-container": "#ededf2",
+                    "on-error-container": "#93000a",
+                    "secondary-fixed": "#e8e2d3",
+                    "sand-800": "#362E1C",
+                    "on-surface": "#1a1c1f",
+                    "on-secondary": "#ffffff",
+                    "on-error": "#ffffff",
+                    "secondary": "#625e53",
+                    "inverse-on-surface": "#f0f0f4",
+                    "surface-tint": "#31628e",
+                    "surface-container-highest": "#e2e2e6",
+                    "tertiary": "#4e2f00",
+                    "on-primary-container": "#93c1f2",
+                    "on-secondary-container": "#686459",
+                    "surface-dim": "#d9dade",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#001d34",
+                    "surface-variant": "#e2e2e6",
+                    "white": "#FFFFFF",
+                    "error": "#ba1a1a",
+                    "primary": "#00385d",
+                    "tertiary-fixed-dim": "#f8bb71",
+                    "on-secondary-fixed-variant": "#4a473c",
+                    "tertiary-container": "#6d4300",
+                    "secondary-fixed-dim": "#cbc6b8",
+                    "inverse-surface": "#2e3034",
+                    "primary-fixed": "#cfe4ff",
+                    "on-primary": "#ffffff",
+                    "surface-bright": "#f9f9fd",
+                    "surface-container-low": "#f3f3f7",
+                    "on-tertiary-fixed-variant": "#653e00"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xxl": "48px",
+                    "xl": "32px",
+                    "md": "16px",
+                    "sm": "8px",
+                    "base": "4px",
+                    "xs": "4px",
+                    "lg": "24px"
+            },
+            "fontFamily": {
+                    "label-md": ["DM Sans"],
+                    "body-lg": ["DM Sans"],
+                    "headline-sm": ["Plus Jakarta Sans"],
+                    "label-sm": ["DM Sans"],
+                    "display-lg": ["Plus Jakarta Sans"],
+                    "headline-md": ["Plus Jakarta Sans"],
+                    "display-lg-mobile": ["Plus Jakarta Sans"],
+                    "body-md": ["DM Sans"],
+                    "body-sm": ["DM Sans"]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .ai-shimmer {
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 2s infinite linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+        .image-placeholder-texture {
+            background-color: #f9f9fd;
+            background-image: radial-gradient(#c2c7d0 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-sand-50 min-h-screen flex flex-col font-body-md text-on-surface">
+<!-- Top App Bar -->
+<header class="bg-surface-bright sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-lg py-md max-w-screen-xl mx-auto">
+<button aria-label="Volver" class="text-primary hover:opacity-80 transition-opacity active:scale-95 duration-100">
+<span class="material-symbols-outlined">arrow_back</span>
+</button>
+<h1 class="text-headline-md font-headline-md font-bold text-primary">People Conecta</h1>
+<div class="w-6"></div> <!-- Spacer for balance -->
+</div>
+</header>
+<main class="flex-grow flex flex-col px-md py-lg max-w-md mx-auto w-full">
+<!-- Progress Indicator -->
+<div class="mb-xl">
+<div class="flex justify-between items-end mb-sm">
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Creando Plan</span>
+<span class="font-label-md text-label-md text-primary font-bold">Paso 7 de 8</span>
+</div>
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary transition-all duration-500 ease-out" style="width: 87.5%;"></div>
+</div>
+</div>
+<!-- Content Area -->
+<section class="flex flex-col space-y-lg flex-grow">
+<div class="space-y-sm">
+<h2 class="font-headline-md text-headline-md-mobile text-sand-800 leading-tight">Foto del plan</h2>
+<p class="font-body-md text-on-surface-variant">Dale vida a tu propuesta con una imagen impactante. Puedes generarla con nuestra IA o subir una propia.</p>
+</div>
+<!-- AI Action Button -->
+<button class="w-full bg-primary text-white py-lg rounded-full font-headline-sm text-headline-sm flex items-center justify-center gap-md shadow-sm hover:opacity-90 active:scale-95 transition-all relative overflow-hidden group">
+<div class="absolute inset-0 ai-shimmer opacity-0 group-hover:opacity-100"></div>
+<span class="relative z-10">Generar imagen con IA ✨</span>
+</button>
+<!-- Image Preview Area -->
+<div class="relative aspect-video w-full rounded-xl border-2 border-dashed border-outline-variant bg-surface-container-low image-placeholder-texture flex flex-col items-center justify-center overflow-hidden group hover:border-primary transition-colors cursor-pointer">
+<div class="flex flex-col items-center space-y-md text-on-surface-variant group-hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-4xl" style="font-variation-settings: 'opsz' 48;">image</span>
+<span class="font-label-md text-label-md">Vista previa de la imagen</span>
+</div>
+<!-- Dynamic Overlay (Hidden by default, shown via JS during "generation") -->
+<div class="absolute inset-0 bg-white/60 backdrop-blur-sm flex flex-col items-center justify-center hidden" id="loading-overlay">
+<div class="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+<p class="mt-md font-label-md text-primary animate-pulse">Imaginando tu plan...</p>
+</div>
+</div>
+<!-- Manual Upload Link -->
+<div class="text-center pt-md">
+<button class="font-label-md text-label-md text-primary font-bold border-b-2 border-transparent hover:border-primary transition-all">
+                    Subir mi propia foto
+                </button>
+</div>
+</section>
+<!-- Footer Action -->
+<div class="mt-xxl pb-md">
+<button class="w-full bg-primary text-white py-md rounded-full font-headline-sm text-headline-sm shadow-md active:scale-95 transition-transform" onclick="location.reload()">
+                Siguiente
+            </button>
+</div>
+</main>
+<!-- Bottom Navigation (Hidden on task flows per mandate, but included as Shell Blueprint guide) -->
+<!-- The Shell Visibility Rule suppresses it for this focused task -->
+<script>
+        // Micro-interaction for the IA button
+        const aiButton = document.querySelector('button.bg-primary');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const previewArea = document.querySelector('.image-placeholder-texture');
+
+        aiButton.addEventListener('click', () => {
+            loadingOverlay.classList.remove('hidden');
+            
+            // Simulating image "generation" success
+            setTimeout(() => {
+                loadingOverlay.classList.add('hidden');
+                // In a real app, we'd swap the background or insert an <img>
+                // For this UI mockup, we just show completion via visual state
+                previewArea.classList.remove('border-dashed');
+                previewArea.classList.add('border-solid', 'border-primary');
+                
+                // Add a mock generated image via style for the prototype
+                previewArea.innerHTML = `
+                    <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=1200" 
+                         data-alt="A cinematic, wide-angle photograph of a serene beach in Mar del Plata during the golden hour. The soft sand in the foreground is undisturbed, while gentle navy blue waves lap at the shore. The sky is a warm gradient of pastel oranges and pale yellows, reflecting the Coastal Serenity style. The lighting is diffused and calm, evoking a peaceful, premium lifestyle atmosphere." 
+                         class="w-full h-full object-cover">
+                    <div class="absolute bottom-md right-md bg-white/80 backdrop-blur-sm px-sm py-xs rounded-lg flex items-center gap-xs">
+                        <span class="material-symbols-outlined text-sm text-primary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                        <span class="text-[10px] font-bold text-primary uppercase">IA Generada</span>
+                    </div>
+                `;
+            }, 2500);
+        });
+    </script>
+</body></html>

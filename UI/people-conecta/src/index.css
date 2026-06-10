@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #00A8A8;
+  --color-primary-container: #E6F7F7;
+  --color-on-primary: #FFFFFF;
+  --color-on-primary-container: #005555;
+  --color-secondary: #FF6347;
+  --color-secondary-container: #FFF0ED;
+  --color-on-secondary: #FFFFFF;
+  --color-on-secondary-container: #CC3318;
+  --color-tertiary: #8B7550;
+  --color-tertiary-container: #F7F1E3;
+  --color-on-tertiary: #FFFFFF;
+  --color-on-tertiary-container: #4A3E2B;
+
+  /* Custom colors matching the Arena + Océano design system */
+  --color-sand-50: #FDFAF4;
+  --color-sand-100: #F7F1E3;
+  --color-sand-200: #EDE3CC;
+  --color-sand-300: #DDD0B3;
+  --color-sand-400: #C4B48E;
+  --color-sand-500: #A89468;
+  --color-sand-600: #8B7550;
+  --color-sand-700: #6B5A3E;
+  --color-sand-800: #4A3E2B;
+  --color-sand-900: #2E2519;
+
+  --color-ocean-50: #E6F7F7;
+  --color-ocean-100: #B3E8E8;
+  --color-ocean-200: #80D9D8;
+  --color-ocean-300: #4DC9C8;
+  --color-ocean-400: #26BABA;
+  --color-ocean-500: #00A8A8;
+  --color-ocean-600: #008F8F;
+  --color-ocean-700: #007070;
+  --color-ocean-800: #005555;
+  --color-ocean-900: #003535;
+
+  --color-coral-50: #FFF0ED;
+  --color-coral-100: #FFD5CC;
+  --color-coral-200: #FFAA99;
+  --color-coral-300: #FF8066;
+  --color-coral-400: #FF6347;
+  --color-coral-500: #E8482E;
+  --color-coral-600: #CC3318;
+
+  --color-neutral-warm-50: #F9F6F0;
+  --color-neutral-warm-100: #F0EBE1;
+  --color-neutral-warm-200: #E4DDD1;
+  --color-neutral-warm-300: #CEC5B6;
+  --color-neutral-warm-400: #B0A594;
+  --color-neutral-warm-500: #8E8070;
+  --color-neutral-warm-600: #6B6055;
+  --color-neutral-warm-700: #4A4138;
+  --color-neutral-warm-800: #2E2822;
+  --color-neutral-warm-900: #1A1512;
+
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-sans: "DM Sans", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --shadow-elevation-1: 0px 1px 2px rgba(46, 40, 34, 0.15);
+  --shadow-elevation-2: 0px 1px 2px rgba(46, 40, 34, 0.10), 0px 2px 6px rgba(46, 40, 34, 0.12);
+  --shadow-elevation-3: 0px 1px 3px rgba(46, 40, 34, 0.10), 0px 4px 8px rgba(46, 40, 34, 0.14);
+  --shadow-elevation-4: 0px 2px 3px rgba(46, 40, 34, 0.10), 0px 6px 10px rgba(46, 40, 34, 0.14);
+  --shadow-elevation-5: 0px 4px 4px rgba(46, 40, 34, 0.10), 0px 8px 12px rgba(46, 40, 34, 0.14);
+}
+
+/* Custom styled scrollbar for a neat experience on desktop browser components */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-sand-300);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-sand-400);
+}
+
+/* Base custom styles to pair with Plus Jakarta Sans or DM Sans */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(
+    90deg,
+    #F9F6F0 25%,
+    #E4DDD1 50%,
+    #F9F6F0 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite linear;
+}

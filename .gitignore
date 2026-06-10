@@ -1,0 +1,45 @@
+.DS_Store
+.claude/
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Expo / React Native
+.expo/
+**/.expo/
+dist/
+web-build/
+ios/
+android/
+
+# Build outputs
+build/
+coverage/
+.turbo/
+.cache/
+
+# Credentials
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Archives and large generated exports
+*.zip
+*.tar
+*.tar.gz
+
+# Office/data exports kept local unless explicitly needed
+*.xlsx
+*.xls
+*.csv
+
+# Merge/editor artifacts
+*.orig.*

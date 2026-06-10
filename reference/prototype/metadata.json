@@ -1,0 +1,6 @@
+{
+  "name": "People Conecta",
+  "description": "MVP de People Conecta para hacer amigos en Mar del Plata y Chapadmalal a través de actividades reales.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

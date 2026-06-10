@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* ── Fonts ── */
+  --font-sans:    "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, monospace;
+
+  /* ── Brand colors ── */
+  --color-primary-50:  #EBF2F9;
+  --color-primary-100: #C2D9EF;
+  --color-primary-200: #99BFE4;
+  --color-primary-300: #70A6D9;
+  --color-primary-400: #478CCF;
+  --color-primary:     #1A4F7A;
+  --color-primary-600: #163F62;
+  --color-primary-700: #112F49;
+
+  /* ── Neutral colors ── */
+  --color-background: #FDFAF5;
+  --color-surface:    #F5EFE0;
+  --color-border:     #EDEDF2;
+  --color-border-dark:#D5D5DF;
+  --color-ink:        #362E1C;
+  --color-ink-muted:  #574B30;
+  --color-ink-light:  #B0B0BC;
+
+  /* ── Semantic colors ── */
+  --color-success:    #10B981;
+  --color-success-bg: #ECFDF5;
+  --color-warning:    #F59E0B;
+  --color-warning-bg: #FFFBEB;
+  --color-error:      #EF4444;
+  --color-error-bg:   #FEF2F2;
+
+  /* ── Border radius ── */
+  --radius-sm:   8px;
+  --radius-md:   12px;
+  --radius-lg:   16px;
+  --radius-xl:   20px;
+  --radius-2xl:  24px;
+  --radius-full: 9999px;
+}
+
+/* Custom fade animations for high fidelity page rendering transitions */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom scroller conceal bar */
+.scroller-hide::-webkit-scrollbar {
+  display: none;
+}
+.scroller-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
