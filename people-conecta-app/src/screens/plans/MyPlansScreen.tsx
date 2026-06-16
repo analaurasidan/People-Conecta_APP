@@ -5,6 +5,9 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { CalendarBlank } from 'phosphor-react-native/lib/commonjs/icons/CalendarBlank';
+import { Clock } from 'phosphor-react-native/lib/commonjs/icons/Clock';
+import { MapPin } from 'phosphor-react-native/lib/commonjs/icons/MapPin';
 import { colors, typography, spacing, radius, shadow } from '@/tokens';
 import { getMyPlans } from '@/services/plans';
 import { useAuthStore } from '@/store/authStore';
@@ -59,7 +62,9 @@ export default function MyPlansScreen() {
           </View>
         ) : (
           <View style={styles.empty}>
-            <Text style={styles.emptyIcon}>📅</Text>
+            <View style={styles.emptyIcon}>
+              <CalendarBlank color={colors.primary[500]} size={34} weight="regular" />
+            </View>
             <Text style={styles.emptyTitle}>
               {isLoading ? 'Cargando tus planes...' : 'Todavía no te sumaste a ningún plan'}
             </Text>
@@ -112,7 +117,17 @@ function ConfirmedPlanCard({
           <Text style={styles.date}>{fechaLabel}</Text>
         </View>
         <Text style={styles.planTitle} numberOfLines={2}>{plan.nombre}</Text>
-        <Text style={styles.meta}>📍 {plan.zona} · 🕒 {plan.hora} hs</Text>
+        <View style={styles.meta}>
+          <View style={styles.metaItem}>
+            <MapPin color={colors.textSecondary} size={14} weight="regular" />
+            <Text style={styles.metaText}>{plan.zona}</Text>
+          </View>
+          <Text style={styles.metaDot}>·</Text>
+          <View style={styles.metaItem}>
+            <Clock color={colors.textSecondary} size={14} weight="regular" />
+            <Text style={styles.metaText}>{plan.hora} hs</Text>
+          </View>
+        </View>
 
         <View style={styles.actions}>
           <TouchableOpacity style={styles.secondaryBtn} onPress={onOpenDetail}>
@@ -165,7 +180,10 @@ const styles = StyleSheet.create({
   },
   date: { ...typography.labelSmall, color: colors.textSecondary, textTransform: 'uppercase' },
   planTitle: { ...typography.titleMedium, color: colors.textPrimary },
-  meta: { ...typography.bodySmall, color: colors.textSecondary },
+  meta: { flexDirection: 'row', alignItems: 'center', gap: spacing[1], flexWrap: 'wrap' },
+  metaItem: { flexDirection: 'row', alignItems: 'center', gap: 3 },
+  metaText: { ...typography.bodySmall, color: colors.textSecondary },
+  metaDot: { ...typography.bodySmall, color: colors.textSecondary },
   actions: { flexDirection: 'row', gap: spacing[2], marginTop: spacing[2] },
   secondaryBtn: {
     flex: 1,
@@ -185,7 +203,14 @@ const styles = StyleSheet.create({
   },
   chatText: { ...typography.labelMedium, color: colors.white },
   empty: { alignItems: 'center', paddingTop: spacing[16], paddingHorizontal: spacing[4], gap: spacing[3] },
-  emptyIcon: { fontSize: 36 },
+  emptyIcon: {
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+    backgroundColor: colors.primary[50],
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   emptyTitle: { ...typography.titleMedium, color: colors.textPrimary, textAlign: 'center' },
   emptySubtitle: { ...typography.bodyMedium, color: colors.textSecondary, textAlign: 'center' },
   exploreBtn: {

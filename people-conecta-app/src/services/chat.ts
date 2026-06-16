@@ -2,8 +2,10 @@ import { supabase } from './supabase';
 import { Platform } from 'react-native';
 import { ChatMessage } from './database.types';
 
+const nativeDemoMessages: Record<string, ChatMessage[]> = {};
+
 export async function getChatMessages(planId: string) {
-  if (Platform.OS === 'web') {
+  if (isDemoChat(planId)) {
     return getDemoMessages(planId);
   }
 
@@ -20,7 +22,7 @@ export async function getChatMessages(planId: string) {
 }
 
 export async function sendMessage(planId: string, userId: string, contenido: string, fotoUrl?: string) {
-  if (Platform.OS === 'web') {
+  if (isDemoChat(planId) || isDemoUser(userId)) {
     const message: ChatMessage = {
       id: `demo_msg_${Date.now()}`,
       plan_id: planId,
@@ -35,7 +37,7 @@ export async function sendMessage(planId: string, userId: string, contenido: str
       },
     };
     const messages = [...getDemoMessages(planId), message];
-    localStorage.setItem(getDemoChatKey(planId), JSON.stringify(messages));
+    setDemoMessages(planId, messages);
     return message;
   }
 
@@ -52,7 +54,7 @@ export function subscribeToChatMessages(
   planId: string,
   onNewMessage: (message: ChatMessage) => void
 ) {
-  if (Platform.OS === 'web') {
+  if (isDemoChat(planId)) {
     return () => undefined;
   }
 
@@ -86,6 +88,16 @@ function getDemoChatKey(planId: string) {
 }
 
 function getDemoMessages(planId: string) {
+  if (Platform.OS !== 'web') {
+    if (nativeDemoMessages[planId]) {
+      return nativeDemoMessages[planId];
+    }
+
+    const seeded = buildSeededMessages(planId);
+    nativeDemoMessages[planId] = seeded;
+    return seeded;
+  }
+
   const stored = localStorage.getItem(getDemoChatKey(planId));
   if (stored) {
     try {
@@ -95,8 +107,23 @@ function getDemoMessages(planId: string) {
     }
   }
 
+  const seeded = buildSeededMessages(planId);
+  localStorage.setItem(getDemoChatKey(planId), JSON.stringify(seeded));
+  return seeded;
+}
+
+function setDemoMessages(planId: string, messages: ChatMessage[]) {
+  if (Platform.OS === 'web') {
+    localStorage.setItem(getDemoChatKey(planId), JSON.stringify(messages));
+    return;
+  }
+
+  nativeDemoMessages[planId] = messages;
+}
+
+function buildSeededMessages(planId: string): ChatMessage[] {
   const now = Date.now();
-  const seeded: ChatMessage[] = [
+  return [
     {
       id: `${planId}_welcome`,
       plan_id: planId,
@@ -116,7 +143,12 @@ function getDemoMessages(planId: string) {
       user: { id: 'demo_host', nombre: 'Anfi local', foto_url: null },
     },
   ];
+}
 
-  localStorage.setItem(getDemoChatKey(planId), JSON.stringify(seeded));
-  return seeded;
+function isDemoChat(planId: string) {
+  return planId.startsWith('demo_');
+}
+
+function isDemoUser(userId?: string | null) {
+  return userId === 'demo_user' || userId === 'demo_web_user';
 }

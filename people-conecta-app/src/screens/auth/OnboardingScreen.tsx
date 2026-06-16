@@ -29,9 +29,10 @@ export default function OnboardingScreen() {
   const [city, setCity] = useState('Mar del Plata');
   const [cityOpen, setCityOpen] = useState(false);
   const [zone, setZone] = useState('');
+  const [error, setError] = useState('');
 
   const canContinue =
-    step === 0 ? name.trim().length > 2 && phone.trim().length > 6 :
+    step === 0 ? name.trim().length > 2 && phone.trim().length >= 6 :
     step === 1 ? !!reason :
     interests.length > 0 && !!city && !!zone.trim();
 
@@ -44,6 +45,19 @@ export default function OnboardingScreen() {
   }
 
   function handleNext() {
+    setError('');
+
+    if (!canContinue) {
+      if (step === 0) {
+        setError('Completá tu nombre y un teléfono de al menos 6 dígitos para seguir.');
+      } else if (step === 1) {
+        setError('Elegí una opción para contarnos por qué estás acá.');
+      } else {
+        setError('Elegí al menos un interés y escribí tu zona aproximada.');
+      }
+      return;
+    }
+
     if (step < 2) {
       setStep(prev => prev + 1);
       return;
@@ -63,9 +77,10 @@ export default function OnboardingScreen() {
         rating_promedio: null,
         created_at: new Date().toISOString(),
       });
+      return;
     }
 
-    navigation.navigate('Main', { screen: 'Explore' });
+    navigation.navigate('PendingApproval');
   }
 
   return (
@@ -100,7 +115,7 @@ export default function OnboardingScreen() {
               label="Teléfono móvil (SMS)"
               placeholder="Ej: +54 9 223 123-4567"
               value={phone}
-              onChangeText={setPhone}
+              onChangeText={(value) => setPhone(value.replace(/[^\d+\s-]/g, ''))}
               helper="Requerido para coordinar encuentros reales de manera segura."
             />
             <Field
@@ -187,10 +202,10 @@ export default function OnboardingScreen() {
         )}
 
         <View style={styles.footer}>
+          {!!error && <Text style={styles.errorText}>{error}</Text>}
           <Button
             label={step === 2 ? 'Guardar perfil' : 'Siguiente →'}
             onPress={handleNext}
-            disabled={!canContinue}
             fullWidth
             size="lg"
             variant="primary"
@@ -346,6 +361,7 @@ const styles = StyleSheet.create({
     gap: spacing[3],
     paddingTop: spacing[4],
   },
+  errorText: { ...typography.bodySmall, color: '#B42318', textAlign: 'center' },
   backLink: { alignItems: 'center', paddingVertical: spacing[2] },
   backText: { ...typography.labelMedium, color: '#4A3E2B' },
 });

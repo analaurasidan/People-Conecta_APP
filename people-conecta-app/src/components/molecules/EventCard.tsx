@@ -2,8 +2,11 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Image } from 'expo-image';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
-import { colors, typography, spacing, radius, shadow } from '@/tokens';
+import { Clock } from 'phosphor-react-native/lib/commonjs/icons/Clock';
+import { MapPin } from 'phosphor-react-native/lib/commonjs/icons/MapPin';
+import { colors, typography, spacing, radius, shadow, fontFamily } from '@/tokens';
 import { Plan } from '@/services/database.types';
+import CategoryIcon from '@/components/atoms/CategoryIcon';
 
 type Props = {
   plan: Plan;
@@ -13,19 +16,6 @@ type Props = {
 };
 
 const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity);
-
-const CATEGORY_ICON: Record<string, string> = {
-  Deporte: '🏄',
-  Música: '🎵',
-  Gastronomía: '🍳',
-  Cocina: '🍳',
-  Idiomas: '🗣️',
-  Cine: '🎬',
-  Naturaleza: '🌿',
-  Arte: '🎨',
-  Juegos: '🎲',
-  Social: '✨',
-};
 
 export default function EventCard({ plan, onPress, canManage = false, onDelete }: Props) {
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -58,9 +48,8 @@ export default function EventCard({ plan, onPress, canManage = false, onDelete }
           transition={200}
         />
         <View style={styles.categoryBadge}>
-          <Text style={styles.categoryText}>
-            {CATEGORY_ICON[plan.categoria] ?? '✨'} {plan.categoria}
-          </Text>
+          <CategoryIcon category={plan.categoria} color={colors.primary[500]} size={13} weight="bold" />
+          <Text style={styles.categoryText}>{plan.categoria}</Text>
         </View>
         <View style={[styles.priceBadge, canManage && styles.priceBadgeManaged]}>
           <Text style={styles.priceBadgeText}>
@@ -95,13 +84,21 @@ export default function EventCard({ plan, onPress, canManage = false, onDelete }
       <View style={styles.content}>
         <View style={styles.titleRow}>
           <Text style={styles.title} numberOfLines={2}>{plan.nombre}</Text>
-          <Text style={styles.dateText}>{dayLabel}</Text>
+          <View style={styles.datePill}>
+            <Text style={styles.dateText}>{dayLabel}</Text>
+          </View>
         </View>
 
         <View style={styles.meta}>
-          <Text style={styles.metaText}>📍 {plan.zona}</Text>
+          <View style={styles.metaItem}>
+            <MapPin color={colors.textSecondary} size={14} weight="regular" />
+            <Text style={styles.metaText}>{plan.zona}</Text>
+          </View>
           <Text style={styles.metaDot}>·</Text>
-          <Text style={styles.metaText}>🕒 {plan.hora} hs</Text>
+          <View style={styles.metaItem}>
+            <Clock color={colors.textSecondary} size={14} weight="regular" />
+            <Text style={styles.metaText}>{plan.hora} hs</Text>
+          </View>
         </View>
 
         <View style={styles.footer}>
@@ -157,6 +154,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing[2],
     paddingVertical: 5,
     borderRadius: radius.full,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
   },
   categoryText: {
     ...typography.labelSmall,
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     color: colors.textPrimary,
     fontSize: 22,
     lineHeight: 18,
-    fontFamily: 'DMSans-SemiBold',
+    fontFamily: fontFamily.bodySemiBold,
   },
   deleteMenuItem: {
     marginTop: spacing[2],
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
   deleteMenuText: {
     ...typography.labelMedium,
     color: colors.error,
-    fontFamily: 'DMSans-SemiBold',
+    fontFamily: fontFamily.bodySemiBold,
   },
   priceBadgeText: {
     ...typography.labelSmall,
@@ -232,14 +232,30 @@ const styles = StyleSheet.create({
   },
   dateText: {
     ...typography.labelLarge,
-    color: '#4A3E2B',
-    textAlign: 'right',
-    letterSpacing: 1.2,
+    color: colors.primary[700],
+    textAlign: 'center',
+    letterSpacing: 0.8,
+  },
+  datePill: {
+    minWidth: 62,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.primary[50],
+    borderColor: colors.primary[100],
+    borderWidth: 1,
+    borderRadius: radius.md,
+    paddingHorizontal: spacing[2],
+    paddingVertical: spacing[1],
   },
   meta: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing[1],
+  },
+  metaItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
   },
   metaText: {
     ...typography.bodySmall,
@@ -269,7 +285,7 @@ const styles = StyleSheet.create({
   cuposNumber: {
     ...typography.labelSmall,
     color: colors.primary[500],
-    fontFamily: 'DMSans-SemiBold',
+    fontFamily: fontFamily.bodySemiBold,
   },
   progressBarBg: {
     height: 5,
@@ -289,7 +305,7 @@ const styles = StyleSheet.create({
   },
   cuposUrgente: {
     color: colors.primary[600],
-    fontFamily: 'DMSans-SemiBold',
+    fontFamily: fontFamily.bodySemiBold,
   },
   joinPill: {
     backgroundColor: colors.primary[500],
@@ -300,6 +316,6 @@ const styles = StyleSheet.create({
   joinText: {
     ...typography.labelSmall,
     color: colors.white,
-    fontFamily: 'DMSans-SemiBold',
+    fontFamily: fontFamily.bodySemiBold,
   },
 });

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoute, RouteProp } from '@react-navigation/native';
-import { colors, typography, spacing, radius } from '@/tokens';
+import { colors, typography, spacing, radius, fontFamily } from '@/tokens';
 import { verifyOTP } from '@/services/auth';
 import { AuthStackParams } from '@/navigation/types';
 import Button from '@/components/atoms/Button';
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   },
   title: { ...typography.headlineSmall, color: colors.textPrimary },
   subtitle: { ...typography.bodyMedium, color: colors.textSecondary, lineHeight: 22 },
-  email: { fontFamily: 'DMSans-SemiBold', color: colors.textPrimary },
+  email: { fontFamily: fontFamily.bodySemiBold, color: colors.textPrimary },
   codeInput: {
     backgroundColor: colors.surface,
     borderWidth: 2,
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     borderRadius: radius.md,
     paddingVertical: spacing[5],
     fontSize: 32,
-    fontFamily: 'JetBrainsMono-Regular',
+    fontFamily: fontFamily.monospace,
     color: colors.textPrimary,
     letterSpacing: 16,
   },

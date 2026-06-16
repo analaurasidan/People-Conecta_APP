@@ -33,10 +33,10 @@
           "icon": "./assets/notification-icon.png",
           "color": "#00A8A8"
         }
-      ],
+      ]
     ],
     "web": {
-      "bundler": "webpack"
+      "bundler": "metro"
     },
     "extra": {
       "eas": {

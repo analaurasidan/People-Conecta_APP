@@ -7,12 +7,17 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoute, useNavigation, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { CalendarBlank } from 'phosphor-react-native/lib/commonjs/icons/CalendarBlank';
+import { Clock } from 'phosphor-react-native/lib/commonjs/icons/Clock';
+import { MapPin } from 'phosphor-react-native/lib/commonjs/icons/MapPin';
+import { UsersThree } from 'phosphor-react-native/lib/commonjs/icons/UsersThree';
 import { colors, typography, spacing, radius, shadow } from '@/tokens';
 import { getPlanById, joinPlan, leavePlan } from '@/services/plans';
 import { useAuthStore } from '@/store/authStore';
 import { RootStackParams } from '@/navigation/types';
 import Avatar from '@/components/atoms/Avatar';
 import Button from '@/components/atoms/Button';
+import CategoryIcon from '@/components/atoms/CategoryIcon';
 import { Participation } from '@/services/database.types';
 
 type Route = RouteProp<RootStackParams, 'PlanDetail'>;
@@ -86,6 +91,7 @@ export default function PlanDetailScreen() {
         <View style={styles.content}>
           <View style={styles.row}>
             <View style={styles.categoryPill}>
+              <CategoryIcon category={plan.categoria} color={colors.textSecondary} size={14} weight="bold" />
               <Text style={styles.categoryText}>{plan.categoria}</Text>
             </View>
             {plan.es_gratuito && (
@@ -98,11 +104,11 @@ export default function PlanDetailScreen() {
           <Text style={styles.subtitle}>Confirmá tu lugar para guardar este plan en Mis planes. Desde ahí vas a poder abrir el grupo y coordinar con el anfi.</Text>
 
           <View style={styles.infoCard}>
-            <InfoRow emoji="📅" label={fechaLabel} />
-            <InfoRow emoji="🕒" label={`${plan.hora} hs`} />
-            <InfoRow emoji="📍" label={plan.zona} />
+            <InfoRow icon={<CalendarBlank color={colors.primary[500]} size={18} weight="regular" />} label={fechaLabel} />
+            <InfoRow icon={<Clock color={colors.primary[500]} size={18} weight="regular" />} label={`${plan.hora} hs`} />
+            <InfoRow icon={<MapPin color={colors.primary[500]} size={18} weight="regular" />} label={plan.zona} />
             <InfoRow
-              emoji="👥"
+              icon={<UsersThree color={colors.primary[500]} size={18} weight="regular" />}
               label={`${plan.cupo_actual}/${plan.cupo_max} confirmados · ${cuposLibres} cupos libres`}
             />
           </View>
@@ -185,10 +191,10 @@ export default function PlanDetailScreen() {
   );
 }
 
-function InfoRow({ emoji, label }: { emoji: string; label: string }) {
+function InfoRow({ icon, label }: { icon: React.ReactNode; label: string }) {
   return (
     <View style={styles.infoRow}>
-      <Text style={styles.infoEmoji}>{emoji}</Text>
+      <View style={styles.infoIcon}>{icon}</View>
       <Text style={styles.infoLabel}>{label}</Text>
     </View>
   );
@@ -209,6 +215,9 @@ const styles = StyleSheet.create({
   content: { padding: spacing[4], gap: spacing[4] },
   row: { flexDirection: 'row', gap: spacing[2] },
   categoryPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
     backgroundColor: colors.neutral[100],
     paddingHorizontal: spacing[3],
     paddingVertical: spacing[1],
@@ -225,7 +234,7 @@ const styles = StyleSheet.create({
     ...shadow.sm,
   },
   infoRow: { flexDirection: 'row', alignItems: 'flex-start', gap: spacing[3] },
-  infoEmoji: { fontSize: 18 },
+  infoIcon: { width: 20, alignItems: 'center', paddingTop: 1 },
   infoLabel: { ...typography.bodyMedium, color: colors.textPrimary, flex: 1 },
   descTitle: { ...typography.titleSmall, color: colors.textPrimary },
   desc: { ...typography.bodyMedium, color: colors.textSecondary, lineHeight: 22 },

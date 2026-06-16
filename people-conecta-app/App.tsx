@@ -8,6 +8,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import RootNavigator from '@/navigation/RootNavigator';
 import { useAuthListener } from '@/hooks/useAuth';
+import { fontFamily } from '@/tokens';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -28,6 +29,23 @@ function AppInner() {
 export default function App() {
   // TODO: agregar fuentes cuando estén en assets/fonts/
   useEffect(() => {
+    if (Platform.OS === 'web') {
+      const styleId = 'people-conecta-web-typography';
+      let style = document.getElementById(styleId);
+      if (!style) {
+        style = document.createElement('style');
+        style.id = styleId;
+        document.head.appendChild(style);
+      }
+      style.textContent = `
+        html, body, #root {
+          font-family: ${fontFamily.bodyRegular};
+        }
+        button, input, textarea, select {
+          font-family: ${fontFamily.bodyRegular};
+        }
+      `;
+    }
     SplashScreen.hideAsync();
   }, []);
 

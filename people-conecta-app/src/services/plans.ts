@@ -3,6 +3,9 @@ import { Platform } from 'react-native';
 import { Plan } from './database.types';
 import { demoPlans } from './demoPlans';
 
+let nativeJoinedPlanIds: string[] = [];
+let nativeCreatedDemoPlans: Plan[] = [];
+
 export type PlanFilters = {
   zona?: string;
   categoria?: string;
@@ -57,29 +60,9 @@ function filterDemoPlans(filters: PlanFilters = {}) {
 }
 
 export async function getPlanById(id: string) {
-  if (Platform.OS === 'web') {
-    const plan = [...getCreatedDemoPlans(), ...demoPlans].find((item) => item.id === id);
-    if (!plan) throw new Error('Plan no encontrado');
-
-    const joined = getJoinedPlanIds().includes(id);
-    return {
-      ...plan,
-      cupo_actual: joined ? Math.max(plan.cupo_actual, 1) : plan.cupo_actual,
-      participations: joined
-        ? [{
-            id: `demo_participation_${id}`,
-            user_id: 'demo_web_user',
-            plan_id: id,
-            estado: 'confirmado',
-            created_at: new Date().toISOString(),
-            user: {
-              id: 'demo_web_user',
-              nombre: 'Usuario demo',
-              foto_url: null,
-            },
-          }]
-        : [],
-    } as Plan;
+  const demoPlan = getDemoPlanById(id);
+  if (demoPlan) {
+    return buildDemoPlanDetail(demoPlan);
   }
 
   const { data, error } = await supabase
@@ -90,16 +73,21 @@ export async function getPlanById(id: string) {
       participations(*, user:users!user_id(id, nombre, foto_url))
     `)
     .eq('id', id)
-    .single();
+    .maybeSingle();
+
   if (error) throw error;
+  if (!data) {
+    throw new Error('Plan no encontrado');
+  }
+
   return data as Plan;
 }
 
 export async function createPlan(plan: Partial<Plan>) {
-  if (Platform.OS === 'web') {
+  if (isDemoUser(plan.creator_id)) {
     const createdPlan: Plan = {
       id: `demo_created_${Date.now()}`,
-      creator_id: plan.creator_id ?? 'demo_web_user',
+      creator_id: plan.creator_id ?? 'demo_user',
       nombre: plan.nombre ?? 'Plan sin nombre',
       categoria: plan.categoria ?? 'Social',
       descripcion: plan.descripcion ?? '',
@@ -115,7 +103,7 @@ export async function createPlan(plan: Partial<Plan>) {
       estado: 'publicado',
       created_at: new Date().toISOString(),
       creator: {
-        id: plan.creator_id ?? 'demo_web_user',
+        id: plan.creator_id ?? 'demo_user',
         nombre: 'Usuario demo',
         foto_url: null,
         ciudad: 'Mar del Plata',
@@ -130,7 +118,7 @@ export async function createPlan(plan: Partial<Plan>) {
     };
 
     const created = [createdPlan, ...getCreatedDemoPlans()];
-    localStorage.setItem('pc_created_demo_plans', JSON.stringify(created));
+    setCreatedDemoPlans(created);
     return createdPlan;
   }
 
@@ -155,11 +143,11 @@ export async function updatePlan(id: string, updates: Partial<Plan>) {
 }
 
 export async function deletePlan(planId: string) {
-  if (Platform.OS === 'web') {
+  if (isDemoPlanId(planId)) {
     const created = getCreatedDemoPlans().filter((plan) => plan.id !== planId);
     const joined = getJoinedPlanIds().filter((id) => id !== planId);
-    localStorage.setItem('pc_created_demo_plans', JSON.stringify(created));
-    localStorage.setItem('pc_joined_plan_ids', JSON.stringify(joined));
+    setCreatedDemoPlans(created);
+    setJoinedPlanIds(joined);
     return;
   }
 
@@ -167,10 +155,10 @@ export async function deletePlan(planId: string) {
 }
 
 export async function joinPlan(planId: string, userId: string) {
-  if (Platform.OS === 'web') {
+  if (isDemoUser(userId) || isDemoPlanId(planId)) {
     const joined = new Set(getJoinedPlanIds());
     joined.add(planId);
-    localStorage.setItem('pc_joined_plan_ids', JSON.stringify([...joined]));
+    setJoinedPlanIds([...joined]);
     return {
       id: `demo_participation_${planId}`,
       plan_id: planId,
@@ -194,9 +182,9 @@ export async function joinPlan(planId: string, userId: string) {
 }
 
 export async function leavePlan(planId: string) {
-  if (Platform.OS === 'web') {
+  if (isDemoPlanId(planId)) {
     const joined = getJoinedPlanIds().filter((id) => id !== planId);
-    localStorage.setItem('pc_joined_plan_ids', JSON.stringify(joined));
+    setJoinedPlanIds(joined);
     return;
   }
 
@@ -204,6 +192,10 @@ export async function leavePlan(planId: string) {
 }
 
 function getJoinedPlanIds() {
+  if (Platform.OS !== 'web') {
+    return nativeJoinedPlanIds;
+  }
+
   try {
     return JSON.parse(localStorage.getItem('pc_joined_plan_ids') ?? '[]') as string[];
   } catch {
@@ -212,11 +204,81 @@ function getJoinedPlanIds() {
 }
 
 function getCreatedDemoPlans() {
+  if (Platform.OS !== 'web') {
+    return nativeCreatedDemoPlans;
+  }
+
   try {
     return JSON.parse(localStorage.getItem('pc_created_demo_plans') ?? '[]') as Plan[];
   } catch {
     return [];
   }
+}
+
+function setJoinedPlanIds(ids: string[]) {
+  if (Platform.OS === 'web') {
+    localStorage.setItem('pc_joined_plan_ids', JSON.stringify(ids));
+    return;
+  }
+
+  nativeJoinedPlanIds = ids;
+}
+
+function setCreatedDemoPlans(plans: Plan[]) {
+  if (Platform.OS === 'web') {
+    localStorage.setItem('pc_created_demo_plans', JSON.stringify(plans));
+    return;
+  }
+
+  nativeCreatedDemoPlans = plans;
+}
+
+function isDemoPlanId(planId: string) {
+  return planId.startsWith('demo_');
+}
+
+function isDemoUser(userId?: string | null) {
+  return userId === 'demo_user' || userId === 'demo_web_user';
+}
+
+function getDemoPlanById(id: string) {
+  return [...getCreatedDemoPlans(), ...demoPlans].find((item) => item.id === id);
+}
+
+function buildDemoPlanDetail(plan: Plan) {
+  const joined = getJoinedPlanIds().includes(plan.id);
+
+  return {
+    ...plan,
+    creator: plan.creator ?? {
+      id: 'demo_people_conecta',
+      nombre: 'People Conecta',
+      foto_url: null,
+      ciudad: 'Mar del Plata',
+      zona: 'Centro',
+      intereses: ['Social'],
+      plan_tier: 'free',
+      aprobado: true,
+      no_shows: 0,
+      rating_promedio: 4.8,
+      created_at: new Date().toISOString(),
+    },
+    cupo_actual: joined ? Math.max(plan.cupo_actual, 1) : plan.cupo_actual,
+    participations: joined
+      ? [{
+          id: `demo_participation_${plan.id}`,
+          user_id: 'demo_user',
+          plan_id: plan.id,
+          estado: 'confirmado',
+          created_at: new Date().toISOString(),
+          user: {
+            id: 'demo_user',
+            nombre: 'Usuario demo',
+            foto_url: null,
+          },
+        }]
+      : [],
+  } as Plan;
 }
 
 export async function cancelParticipation(participationId: string, planId: string) {
@@ -230,9 +292,9 @@ export async function cancelParticipation(participationId: string, planId: strin
 }
 
 export async function getMyPlans(userId: string) {
-  if (Platform.OS === 'web') {
+  if (isDemoUser(userId)) {
     const joined = getJoinedPlanIds();
-    return demoPlans
+    return [...getCreatedDemoPlans(), ...demoPlans]
       .filter((plan) => joined.includes(plan.id))
       .map((plan) => ({
         id: `demo_participation_${plan.id}`,
@@ -261,6 +323,10 @@ export async function getMyPlans(userId: string) {
 }
 
 export async function getMyCreatedPlans(userId: string) {
+  if (isDemoUser(userId)) {
+    return getCreatedDemoPlans().filter((plan) => plan.creator_id === userId);
+  }
+
   const { data, error } = await supabase
     .from('plans')
     .select('*')

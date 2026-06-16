@@ -5,7 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { colors, typography, spacing, radius } from '@/tokens';
-import { pickImage, uploadPlanImage, generatePlanImageAI } from '@/services/images';
+import { pickImage, uploadPlanImage } from '@/services/images';
 import { CreatePlanStackParams } from './CreatePlanNavigator';
 import Button from '@/components/atoms/Button';
 
@@ -58,10 +58,8 @@ export default function Step3Image() {
     }
     setLoadingAI(true);
     try {
-      const url = Platform.OS === 'web'
-        ? AI_IMAGE_BY_CATEGORY[route.params.categoria] ?? AI_IMAGE_BY_CATEGORY.Social
-        : await generatePlanImageAI(route.params.categoria, route.params.descripcion);
-      setFotoUrl(url);
+      const fallbackUrl = AI_IMAGE_BY_CATEGORY[route.params.categoria] ?? AI_IMAGE_BY_CATEGORY.Social;
+      setFotoUrl(fallbackUrl);
       setAiUsed(true);
     } catch (e: any) {
       Alert.alert('Error al generar imagen', e.message);
@@ -104,7 +102,7 @@ export default function Step3Image() {
           >
             <Text style={styles.optionTitle}>✨ Generar con IA{aiUsed ? ' (usado)' : ''}</Text>
             <Text style={styles.optionDesc}>
-              {aiUsed ? 'Ya elegiste una imagen sugerida' : 'Sugerida según categoría y descripción. Para el MVP web funciona como preview rápida.'}
+              {aiUsed ? 'Ya elegiste una imagen sugerida' : 'Sugerida según categoría y descripción. Si la IA no está configurada, usamos una imagen demo sin costo.'}
             </Text>
           </TouchableOpacity>
         </View>

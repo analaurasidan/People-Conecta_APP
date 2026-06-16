@@ -1,23 +1,24 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { CalendarBlank } from 'phosphor-react-native/lib/commonjs/icons/CalendarBlank';
+import { MagnifyingGlass } from 'phosphor-react-native/lib/commonjs/icons/MagnifyingGlass';
+import { Plus } from 'phosphor-react-native/lib/commonjs/icons/Plus';
+import { UserCircle } from 'phosphor-react-native/lib/commonjs/icons/UserCircle';
 
-// Usando emoji como iconos placeholder hasta tener un icon set definido
-const icons: Record<string, string> = {
-  search:   '🔍',
-  calendar: '📅',
-  person:   '👤',
-  plus:     '➕',
-  back:     '←',
+const icons = {
+  search: MagnifyingGlass,
+  calendar: CalendarBlank,
+  person: UserCircle,
+  plus: Plus,
 };
 
 type Props = {
   name: keyof typeof icons;
   color: string;
   size: number;
+  focused?: boolean;
 };
 
-export default function TabBarIcon({ name, size }: Props) {
-  return (
-    <Text style={{ fontSize: size - 4 }}>{icons[name] ?? '●'}</Text>
-  );
+export default function TabBarIcon({ name, color, size, focused = false }: Props) {
+  const IconComponent = icons[name] ?? MagnifyingGlass;
+  return <IconComponent color={color} size={size} weight={focused ? 'fill' : 'regular'} />;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, Platform } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParams } from './types';
 import { useAuthStore } from '@/store/authStore';
@@ -21,7 +21,12 @@ export default function RootNavigator() {
     </View>
   );
 
-  const isAuthenticated = !!session && !!profile?.aprobado;
+  const isDemoProfile = profile?.id === 'demo_user' || profile?.id === 'demo_web_user';
+  const isAuthenticated = isDemoProfile || (
+    Platform.OS === 'web'
+      ? !!profile?.aprobado
+      : !!session && !!profile?.aprobado
+  );
 
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>

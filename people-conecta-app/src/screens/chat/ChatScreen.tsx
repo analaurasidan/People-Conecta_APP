@@ -6,6 +6,9 @@ import {
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import { useQuery } from '@tanstack/react-query';
+import { CalendarBlank } from 'phosphor-react-native/lib/commonjs/icons/CalendarBlank';
+import { Clock } from 'phosphor-react-native/lib/commonjs/icons/Clock';
+import { MapPin } from 'phosphor-react-native/lib/commonjs/icons/MapPin';
 import { colors, typography, spacing, radius } from '@/tokens';
 import { getChatMessages, sendMessage, subscribeToChatMessages } from '@/services/chat';
 import { getPlanById } from '@/services/plans';
@@ -49,9 +52,13 @@ export default function ChatScreen() {
     setSending(true);
     try {
       const message = await sendMessage(route.params.planId, profile.id, text.trim());
-      if (Platform.OS === 'web') {
+      if (Platform.OS === 'web' || route.params.planId.startsWith('demo_') || profile.id.startsWith('demo_')) {
         setMessages(prev => [...prev, message]);
-        requestAnimationFrame(() => listRef.current?.scrollToEnd({ animated: true }));
+        if (Platform.OS === 'web') {
+          requestAnimationFrame(() => listRef.current?.scrollToEnd({ animated: true }));
+        } else {
+          setTimeout(() => listRef.current?.scrollToEnd({ animated: true }), 50);
+        }
       }
       setText('');
     } finally {
@@ -103,9 +110,22 @@ export default function ChatScreen() {
             <Text style={styles.planTitle} numberOfLines={2}>{plan.nombre}</Text>
             <Text style={styles.planStatus}>Confirmado</Text>
           </View>
-          <Text style={styles.planMeta}>
-            📍 {plan.zona} · {new Date(plan.fecha).toLocaleDateString('es-AR', { weekday: 'short', day: 'numeric', month: 'short' })} · {plan.hora} hs
-          </Text>
+          <View style={styles.planMeta}>
+            <View style={styles.planMetaItem}>
+              <MapPin color={colors.textSecondary} size={14} weight="regular" />
+              <Text style={styles.planMetaText}>{plan.zona}</Text>
+            </View>
+            <View style={styles.planMetaItem}>
+              <CalendarBlank color={colors.textSecondary} size={14} weight="regular" />
+              <Text style={styles.planMetaText}>
+                {new Date(plan.fecha).toLocaleDateString('es-AR', { weekday: 'short', day: 'numeric', month: 'short' })}
+              </Text>
+            </View>
+            <View style={styles.planMetaItem}>
+              <Clock color={colors.textSecondary} size={14} weight="regular" />
+              <Text style={styles.planMetaText}>{plan.hora} hs</Text>
+            </View>
+          </View>
           <View style={styles.planFooter}>
             <Text style={styles.planPeople}>{plan.cupo_actual}/{plan.cupo_max} confirmados</Text>
             <Text style={styles.supportLabel}>People Conecta acompaña este grupo</Text>
@@ -199,7 +219,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing[2],
     paddingVertical: 3,
   },
-  planMeta: { ...typography.bodySmall, color: colors.textSecondary },
+  planMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: spacing[2],
+  },
+  planMetaItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+  },
+  planMetaText: { ...typography.bodySmall, color: colors.textSecondary },
   planFooter: {
     flexDirection: 'row',
     justifyContent: 'space-between',

@@ -7,9 +7,12 @@ import {
   RefreshControl,
   TouchableOpacity,
   ScrollView,
-  Platform,
+  FlatList,
 } from 'react-native';
-import { FlashList } from '@shopify/flash-list';
+import { CaretLeft } from 'phosphor-react-native/lib/commonjs/icons/CaretLeft';
+import { MapPin } from 'phosphor-react-native/lib/commonjs/icons/MapPin';
+import { SlidersHorizontal } from 'phosphor-react-native/lib/commonjs/icons/SlidersHorizontal';
+import { UserCircle } from 'phosphor-react-native/lib/commonjs/icons/UserCircle';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigation } from '@react-navigation/native';
@@ -20,17 +23,18 @@ import { Plan } from '@/services/database.types';
 import { useFiltersStore } from '@/store/filtersStore';
 import { RootStackParams } from '@/navigation/types';
 import EventCard from '@/components/molecules/EventCard';
+import CategoryIcon from '@/components/atoms/CategoryIcon';
 
 type Nav = NativeStackNavigationProp<RootStackParams>;
 
 const CATEGORIAS = [
-  { label: 'Todos', value: null, icon: '✨' },
-  { label: 'Deporte', value: 'Deporte', icon: '🏄' },
-  { label: 'Música', value: 'Música', icon: '🎵' },
-  { label: 'Idiomas', value: 'Idiomas', icon: '🗣️' },
-  { label: 'Gastronomía', value: 'Gastronomía', icon: '🍳' },
-  { label: 'Naturaleza', value: 'Naturaleza', icon: '🌿' },
-  { label: 'Juegos', value: 'Juegos', icon: '🎲' },
+  { label: 'Todos', value: null },
+  { label: 'Deporte', value: 'Deporte' },
+  { label: 'Música', value: 'Música' },
+  { label: 'Idiomas', value: 'Idiomas' },
+  { label: 'Gastronomía', value: 'Gastronomía' },
+  { label: 'Naturaleza', value: 'Naturaleza' },
+  { label: 'Juegos', value: 'Juegos' },
 ];
 
 const ZONAS = ['Playa Grande', 'Güemes', 'Varese', 'Centro'];
@@ -89,23 +93,27 @@ export default function ExploreScreen() {
     <View style={[styles.container, { paddingTop: insets.top }]}>
       <View style={styles.header}>
         <View style={styles.headerCopy}>
-          <Text style={styles.eyebrow}>Mar del Plata</Text>
+          <TouchableOpacity
+            style={styles.backMiniBtn}
+            onPress={() => {
+              if (navigation.canGoBack()) navigation.goBack();
+              else navigation.navigate('OnboardingPreview');
+            }}
+          >
+            <CaretLeft color={colors.textPrimary} size={18} weight="bold" />
+          </TouchableOpacity>
+          <View style={styles.locationRow}>
+            <MapPin color={colors.primary[500]} size={15} weight="bold" />
+            <Text style={styles.eyebrow}>Mar del Plata</Text>
+          </View>
           <Text style={styles.title}>Planes cerca tuyo</Text>
           <Text style={styles.subtitle}>Actividades reales para conocer gente en la calle.</Text>
-          {Platform.OS === 'web' && (
-            <TouchableOpacity
-              style={styles.previewLink}
-              onPress={() => navigation.navigate('OnboardingPreview')}
-            >
-              <Text style={styles.previewLinkText}>Ver onboarding demo</Text>
-            </TouchableOpacity>
-          )}
         </View>
         <TouchableOpacity
           style={styles.profileBtn}
           onPress={() => navigation.navigate('Main', { screen: 'Profile' })}
         >
-          <Text style={styles.profileBtnText}>👤</Text>
+          <UserCircle color={colors.primary[500]} size={24} weight="regular" />
         </TouchableOpacity>
       </View>
 
@@ -119,7 +127,11 @@ export default function ExploreScreen() {
           returnKeyType="search"
         />
         <TouchableOpacity style={[styles.filterBtn, activeFilterCount > 0 && styles.filterBtnActive]} onPress={() => setFiltersOpen(true)}>
-          <Text style={styles.filterIcon}>☷</Text>
+          <SlidersHorizontal
+            color={activeFilterCount > 0 ? colors.primary[500] : colors.textPrimary}
+            size={22}
+            weight="regular"
+          />
           {activeFilterCount > 0 && (
             <View style={styles.filterBadge}>
               <Text style={styles.filterBadgeText}>{activeFilterCount}</Text>
@@ -140,7 +152,12 @@ export default function ExploreScreen() {
             onPress={() => setCategoriaActiva(item.value)}
             style={[styles.chip, categoriaActiva === item.value && styles.chipActive]}
           >
-            <Text style={styles.chipIcon}>{item.icon}</Text>
+            <CategoryIcon
+              category={item.value ?? 'Todos'}
+              color={categoriaActiva === item.value ? colors.white : colors.primary[500]}
+              size={16}
+              weight="bold"
+            />
             <Text style={[styles.chipText, categoriaActiva === item.value && styles.chipTextActive]}>
               {item.label}
             </Text>
@@ -153,7 +170,7 @@ export default function ExploreScreen() {
         <Text style={styles.sectionCount}>{filtered.length} activos</Text>
       </View>
 
-      <FlashList
+      <FlatList
         data={filtered}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
@@ -271,6 +288,22 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: spacing[1],
   },
+  backMiniBtn: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F0EBE1',
+    borderWidth: 1,
+    borderColor: '#E8DDC7',
+    marginBottom: spacing[1],
+  },
+  locationRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing[1],
+  },
   eyebrow: {
     ...typography.labelMedium,
     color: colors.primary[500],
@@ -285,21 +318,6 @@ const styles = StyleSheet.create({
     color: colors.textSecondary,
     maxWidth: 280,
   },
-  previewLink: {
-    alignSelf: 'flex-start',
-    marginTop: spacing[2],
-    backgroundColor: '#F0EBE1',
-    borderWidth: 1,
-    borderColor: '#E8DDC7',
-    borderRadius: radius.full,
-    paddingHorizontal: spacing[3],
-    paddingVertical: spacing[2],
-  },
-  previewLinkText: {
-    ...typography.labelMedium,
-    color: colors.primary[500],
-    fontFamily: 'DMSans-SemiBold',
-  },
   profileBtn: {
     backgroundColor: colors.surface,
     width: 40,
@@ -310,10 +328,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#EDE3CC',
     ...shadow.sm,
-  },
-  profileBtnText: {
-    fontSize: 20,
-    lineHeight: 24,
   },
   searchRow: {
     flexDirection: 'row',
@@ -348,10 +362,6 @@ const styles = StyleSheet.create({
   filterBtnActive: {
     borderColor: colors.primary[500],
     backgroundColor: colors.primary[50],
-  },
-  filterIcon: {
-    fontSize: 20,
-    color: colors.textPrimary,
   },
   filterBadge: {
     position: 'absolute',
@@ -395,9 +405,6 @@ const styles = StyleSheet.create({
   },
   chipActive: {
     backgroundColor: colors.primary[500],
-  },
-  chipIcon: {
-    fontSize: 16,
   },
   chipText: {
     ...typography.labelMedium,

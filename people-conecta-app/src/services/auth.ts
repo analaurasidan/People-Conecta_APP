@@ -1,4 +1,4 @@
-import * as AppleAuthentication from 'expo-apple-authentication';
+import { Platform } from 'react-native';
 import { supabase } from './supabase';
 
 export async function signInWithEmail(email: string, password: string) {
@@ -14,6 +14,11 @@ export async function signUpWithEmail(email: string, password: string) {
 }
 
 export async function signInWithApple() {
+  if (Platform.OS !== 'ios') {
+    throw new Error('Iniciar sesion con Apple solo esta disponible en iPhone.');
+  }
+
+  const AppleAuthentication = require('expo-apple-authentication') as typeof import('expo-apple-authentication');
   const credential = await AppleAuthentication.signInAsync({
     requestedScopes: [
       AppleAuthentication.AppleAuthenticationScope.FULL_NAME,

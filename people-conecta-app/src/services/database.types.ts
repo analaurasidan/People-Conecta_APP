@@ -86,12 +86,19 @@ export type Report = {
 export type Database = {
   public: {
     Tables: {
-      users: { Row: UserProfile; Insert: Partial<UserProfile>; Update: Partial<UserProfile> };
-      plans: { Row: Plan; Insert: Partial<Plan>; Update: Partial<Plan> };
-      participations: { Row: Participation; Insert: Partial<Participation>; Update: Partial<Participation> };
-      chat_messages: { Row: ChatMessage; Insert: Partial<ChatMessage>; Update: Partial<ChatMessage> };
-      reviews: { Row: Review; Insert: Partial<Review>; Update: Partial<Review> };
-      reports: { Row: Report; Insert: Partial<Report>; Update: Partial<Report> };
+      users: { Row: UserProfile; Insert: Partial<UserProfile>; Update: Partial<UserProfile>; Relationships: [] };
+      plans: { Row: Plan; Insert: Partial<Plan>; Update: Partial<Plan>; Relationships: [] };
+      participations: { Row: Participation; Insert: Partial<Participation>; Update: Partial<Participation>; Relationships: [] };
+      chat_messages: { Row: ChatMessage; Insert: Partial<ChatMessage>; Update: Partial<ChatMessage>; Relationships: [] };
+      reviews: { Row: Review; Insert: Partial<Review>; Update: Partial<Review>; Relationships: [] };
+      reports: { Row: Report; Insert: Partial<Report>; Update: Partial<Report>; Relationships: [] };
     };
+    Views: Record<string, never>;
+    Functions: {
+      increment_plan_cupo: { Args: { plan_id: string }; Returns: undefined };
+      decrement_plan_cupo: { Args: { plan_id: string }; Returns: undefined };
+    };
+    Enums: Record<string, never>;
+    CompositeTypes: Record<string, never>;
   };
 };

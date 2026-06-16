@@ -68,7 +68,7 @@ export const demoPlans: Plan[] = [
     hora: '19:30',
     cupo_max: 12,
     cupo_actual: 3,
-    foto_url: 'https://images.unsplash.com/photo-1532509156689-d9d151c890f6?auto=format&fit=crop&q=80&w=900',
+    foto_url: 'https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&q=80&w=900',
     es_gratuito: true,
     precio: null,
     preferencia_genero: 'todos',

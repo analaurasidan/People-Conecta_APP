@@ -3,11 +3,12 @@ import {
   View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, KeyboardAvoidingView, Platform,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import * as AppleAuthentication from 'expo-apple-authentication';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { colors, typography, spacing, radius } from '@/tokens';
-import { signInWithEmail, signInWithApple } from '@/services/auth';
+import { colors, typography, spacing, radius, fontFamily } from '@/tokens';
+import { signInWithEmail } from '@/services/auth';
+import { createDemoProfile } from '@/services/demoProfile';
+import { useAuthStore } from '@/store/authStore';
 import { AuthStackParams } from '@/navigation/types';
 import Button from '@/components/atoms/Button';
 
@@ -19,6 +20,7 @@ export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const setProfile = useAuthStore((state) => state.setProfile);
 
   async function handleEmailLogin() {
     if (!email || !password) return;
@@ -32,14 +34,8 @@ export default function LoginScreen() {
     }
   }
 
-  async function handleAppleLogin() {
-    try {
-      await signInWithApple();
-    } catch (e: any) {
-      if (e.code !== 'ERR_CANCELED') {
-        Alert.alert('Error con Apple', e.message);
-      }
-    }
+  function handleDemoLogin() {
+    setProfile(createDemoProfile());
   }
 
   return (
@@ -91,15 +87,12 @@ export default function LoginScreen() {
           <View style={styles.dividerLine} />
         </View>
 
-        {Platform.OS !== 'web' && (
-          <AppleAuthentication.AppleAuthenticationButton
-            buttonType={AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN}
-            buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.BLACK}
-            cornerRadius={radius.full}
-            style={styles.appleBtn}
-            onPress={handleAppleLogin}
-          />
-        )}
+        <TouchableOpacity style={styles.demoButton} onPress={handleDemoLogin}>
+          <Text style={styles.demoButtonText}>Entrar en modo demo</Text>
+        </TouchableOpacity>
+        <Text style={styles.demoHelper}>
+          Para probar la app sin Apple, código por email ni aprobación manual.
+        </Text>
 
         <TouchableOpacity
           onPress={() => navigation.navigate('Register')}
@@ -111,14 +104,12 @@ export default function LoginScreen() {
           </Text>
         </TouchableOpacity>
 
-        {Platform.OS === 'web' && (
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Onboarding')}
-            style={styles.registerLink}
-          >
-            <Text style={styles.demoLink}>Probar onboarding</Text>
-          </TouchableOpacity>
-        )}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Onboarding')}
+          style={styles.registerLink}
+        >
+          <Text style={styles.demoLink}>Probar onboarding</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
@@ -184,9 +175,18 @@ const styles = StyleSheet.create({
   divider: { flexDirection: 'row', alignItems: 'center', gap: spacing[3], paddingHorizontal: spacing[2] },
   dividerLine: { flex: 1, height: 1, backgroundColor: '#EDE3CC' },
   dividerText: { ...typography.bodySmall, color: colors.textSecondary },
-  appleBtn: { height: 52, width: '100%' },
+  demoButton: {
+    height: 52,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.full,
+    backgroundColor: colors.secondary[500],
+  },
+  demoButtonText: { ...typography.labelLarge, color: colors.white, fontFamily: fontFamily.bodySemiBold },
+  demoHelper: { ...typography.bodySmall, color: colors.textSecondary, textAlign: 'center' },
   registerLink: { alignItems: 'center' },
   registerText: { ...typography.bodyMedium, color: colors.textSecondary },
-  registerBold: { color: colors.primary[500], fontFamily: 'DMSans-SemiBold' },
+  registerBold: { color: colors.primary[500], fontFamily: fontFamily.bodySemiBold },
   demoLink: { ...typography.labelLarge, color: colors.primary[500] },
 });

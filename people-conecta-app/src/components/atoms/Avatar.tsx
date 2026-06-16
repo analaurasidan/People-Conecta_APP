@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Image } from 'expo-image';
-import { colors, typography, radius } from '@/tokens';
+import { colors, typography, radius, fontFamily } from '@/tokens';
 
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -45,6 +45,6 @@ const styles = StyleSheet.create({
   initials: {
     ...typography.labelMedium,
     color: colors.primary[600],
-    fontFamily: 'DMSans-SemiBold',
+    fontFamily: fontFamily.bodySemiBold,
   },
 });

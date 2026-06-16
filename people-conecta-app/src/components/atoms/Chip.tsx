@@ -1,6 +1,5 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import { colors, typography, spacing, radius } from '@/tokens';
 
 type Props = {
@@ -11,7 +10,6 @@ type Props = {
 
 export default function Chip({ label, selected = false, onPress }: Props) {
   function handlePress() {
-    ReactNativeHapticFeedback.trigger('selection');
     onPress?.();
   }
 

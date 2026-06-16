@@ -1,8 +1,9 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { TouchableOpacity, View } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { Plus } from 'phosphor-react-native/lib/commonjs/icons/Plus';
 import { MainTabParams } from './types';
-import { colors } from '@/tokens';
+import { colors, fontFamily } from '@/tokens';
 import ExploreScreen from '@/screens/explore/ExploreScreen';
 import MyPlansScreen from '@/screens/plans/MyPlansScreen';
 import ProfileScreen from '@/screens/profile/ProfileScreen';
@@ -27,10 +28,10 @@ export default function MainNavigator() {
           paddingTop: 8,
         },
         tabBarActiveTintColor:   colors.primary[500],
-        tabBarInactiveTintColor: colors.neutral[400],
+        tabBarInactiveTintColor: '#3E4245',
         tabBarLabelStyle: {
           fontSize: 11,
-          fontFamily: 'DMSans-Medium',
+          fontFamily: fontFamily.bodyMedium,
           marginTop: 2,
         },
       }}
@@ -40,8 +41,8 @@ export default function MainNavigator() {
         component={ExploreScreen}
         options={{
           title: 'Explorar',
-          tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="search" color={color} size={size} />
+          tabBarIcon: ({ color, size, focused }) => (
+            <TabBarIcon name="search" color={color} size={size} focused={focused} />
           ),
         }}
       />
@@ -74,18 +75,7 @@ export default function MainNavigator() {
                 elevation: 6,
               }}
             >
-              <Text
-                style={{
-                  color: colors.white,
-                  fontSize: 32,
-                  lineHeight: 32,
-                  textAlign: 'center',
-                  includeFontPadding: false,
-                  transform: [{ translateY: -1 }],
-                }}
-              >
-                +
-              </Text>
+              <Plus color={colors.white} size={30} weight="bold" />
             </View>
           ),
           tabBarButton: (props) => (
@@ -98,8 +88,8 @@ export default function MainNavigator() {
         component={MyPlansScreen}
         options={{
           title: 'Mis planes',
-          tabBarIcon: ({ color, size }) => (
-            <TabBarIcon name="calendar" color={color} size={size} />
+          tabBarIcon: ({ color, size, focused }) => (
+            <TabBarIcon name="calendar" color={color} size={size} focused={focused} />
           ),
         }}
       />

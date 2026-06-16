@@ -7,7 +7,6 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import Animated, { useSharedValue, useAnimatedStyle, withSpring } from 'react-native-reanimated';
 import { colors, typography, spacing, radius } from '@/tokens';
 
@@ -52,7 +51,6 @@ export default function Button({
   }
 
   function handlePress() {
-    ReactNativeHapticFeedback.trigger('impactLight');
     onPress();
   }
 
