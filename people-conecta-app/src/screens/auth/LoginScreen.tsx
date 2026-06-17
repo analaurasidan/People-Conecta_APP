@@ -11,6 +11,7 @@ import { createDemoProfile } from '@/services/demoProfile';
 import { useAuthStore } from '@/store/authStore';
 import { AuthStackParams } from '@/navigation/types';
 import Button from '@/components/atoms/Button';
+import PeopleConectaLogo from '@/components/atoms/PeopleConectaLogo';
 
 type Nav = NativeStackNavigationProp<AuthStackParams>;
 
@@ -45,10 +46,7 @@ export default function LoginScreen() {
     >
       <View style={styles.inner}>
         <View style={styles.logoArea}>
-          <View style={styles.brandMark}>
-            <Text style={styles.brandMarkText}>PC</Text>
-          </View>
-          <Text style={styles.logoText}>People Conecta</Text>
+          <PeopleConectaLogo variant="horizontal" tone="color" width={260} />
           <Text style={styles.tagline}>Planes reales para conocer gente en tu ciudad</Text>
         </View>
 
@@ -127,21 +125,6 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   logoArea: { alignItems: 'center', gap: spacing[3], marginBottom: spacing[2] },
-  brandMark: {
-    width: 68,
-    height: 68,
-    borderRadius: 24,
-    backgroundColor: colors.primary[50],
-    borderWidth: 1,
-    borderColor: '#B3E8E8',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  brandMarkText: {
-    ...typography.titleLarge,
-    color: colors.primary[700],
-  },
-  logoText: { ...typography.headlineLarge, color: colors.textPrimary },
   tagline: {
     ...typography.bodyMedium,
     color: colors.textSecondary,

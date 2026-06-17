@@ -2,3 +2,4 @@ export { default as Button } from './Button';
 export { default as Avatar } from './Avatar';
 export { default as Chip } from './Chip';
 export { default as TabBarIcon } from './TabBarIcon';
+export { default as PeopleConectaLogo } from './PeopleConectaLogo';

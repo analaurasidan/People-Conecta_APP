@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Image } from 'expo-image';
 import { colors, typography, radius, fontFamily } from '@/tokens';
+import PeopleConectaLogo from './PeopleConectaLogo';
 
 type Size = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 
@@ -16,6 +17,7 @@ type Props = {
 
 export default function Avatar({ uri, name, size = 'md' }: Props) {
   const dim = sizeMap[size];
+  const isBrand = name === 'People Conecta';
   const initials = name
     ? name.split(' ').slice(0, 2).map(w => w[0]).join('').toUpperCase()
     : '?';
@@ -28,6 +30,8 @@ export default function Avatar({ uri, name, size = 'md' }: Props) {
           style={{ width: dim, height: dim, borderRadius: dim / 2 }}
           contentFit="cover"
         />
+      ) : isBrand ? (
+        <PeopleConectaLogo variant="isotype" width={Math.round(dim * 0.72)} />
       ) : (
         <Text style={[styles.initials, { fontSize: fontSizeMap[size] }]}>{initials}</Text>
       )}
