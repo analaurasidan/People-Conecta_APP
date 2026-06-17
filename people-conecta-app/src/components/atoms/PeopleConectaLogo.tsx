@@ -24,6 +24,12 @@ const horizontalXml: Record<Tone, string> = {
   white: LOGO_HORIZONTAL_WHITE,
 };
 
+const inlineSvgColors = (xml: string) =>
+  xml
+    .replace(/<defs>[\s\S]*?<\/defs>/g, '')
+    .replace(/class="b"/g, 'fill="#132446"')
+    .replace(/class="c"/g, 'fill="#f2c08f"');
+
 export default function PeopleConectaLogo({
   variant = 'horizontal',
   tone = 'color',
@@ -34,7 +40,7 @@ export default function PeopleConectaLogo({
   const viewRatio = isIsotype ? 1 : 1600 / 600;
   const resolvedWidth = width ?? (isIsotype ? 72 : 260);
   const resolvedHeight = height ?? Math.round(resolvedWidth / viewRatio);
-  const xml = isIsotype ? LOGO_ISOTYPE : horizontalXml[tone];
+  const xml = inlineSvgColors(isIsotype ? LOGO_ISOTYPE : horizontalXml[tone]);
 
   return (
     <View style={[styles.frame, { width: resolvedWidth, height: resolvedHeight }]}>
