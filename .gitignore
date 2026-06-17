@@ -36,6 +36,12 @@ coverage/
 *.tar
 *.tar.gz
 
+# Local brand/design source exports
+LOGO/
+*.ai
+logo-preview.html
+~ai-*.tmp
+
 # Office/data exports kept local unless explicitly needed
 *.xlsx
 *.xls

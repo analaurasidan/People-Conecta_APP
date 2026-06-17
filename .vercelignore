@@ -1,0 +1,26 @@
+.git/
+.github/
+.claude/
+
+# Product/reference material not needed by the web deploy
+docs/
+skills/
+UI/
+reference/
+MOCKUPS/
+LOGO/
+GMP2025 Data Tables/
+
+# Local files and generated outputs
+*.ai
+*.zip
+*.xlsx
+*.xls
+*.csv
+logo-preview.html
+~ai-*.tmp
+**/.DS_Store
+**/node_modules/
+**/.expo/
+**/dist/
+**/web-build/

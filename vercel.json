@@ -1,0 +1,11 @@
+{
+  "buildCommand": "cd people-conecta-app && npm install && npm run build:web",
+  "outputDirectory": "people-conecta-app/dist",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

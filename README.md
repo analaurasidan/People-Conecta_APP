@@ -4,7 +4,9 @@ People Conecta es una app mobile-first para descubrir, crear y sumarse a planes 
 
 ## Estado Actual
 
-El proyecto tiene una app Expo/React Native Web funcional para testear UI en navegador, un design system de referencia, documentación de producto y skills locales con decisiones de diseño/producto.
+La app real del MVP está en `people-conecta-app/`. Esa es la carpeta que hay que usar para desarrollo, QA y deploy.
+
+El repo también conserva documentación, prototipos anteriores, referencias visuales y skills locales con decisiones de diseño/producto. Esos materiales sirven como respaldo del proceso, pero no son necesarios para ejecutar la app.
 
 Flujo central implementado:
 
@@ -55,6 +57,12 @@ URL habitual:
 http://localhost:19006/
 ```
 
+URL local usada durante QA:
+
+```text
+http://localhost:8087/
+```
+
 Variables de entorno:
 
 ```bash
@@ -66,6 +74,31 @@ Configurar en `.env`:
 ```text
 EXPO_PUBLIC_SUPABASE_URL=
 EXPO_PUBLIC_SUPABASE_ANON_KEY=
+```
+
+## Deploy En Vercel
+
+El repo está preparado para deployar la app web en Vercel.
+
+Opción recomendada:
+
+1. Importar el repo `People-Conecta_APP` en Vercel.
+2. Si Vercel pregunta por Root Directory, elegir `people-conecta-app`.
+3. Build Command: `npm run build:web`.
+4. Output Directory: `dist`.
+5. Agregar variables de entorno:
+   - `EXPO_PUBLIC_SUPABASE_URL`
+   - `EXPO_PUBLIC_SUPABASE_ANON_KEY`
+
+Opción alternativa:
+
+También se puede importar desde la raíz del repo. El `vercel.json` raíz ya apunta a `people-conecta-app` y genera la salida en `people-conecta-app/dist`.
+
+Para validar local antes de deploy:
+
+```bash
+cd "people-conecta-app"
+npm run build:web
 ```
 
 ## Design System
